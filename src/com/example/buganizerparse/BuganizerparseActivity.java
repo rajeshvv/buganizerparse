@@ -8,7 +8,10 @@ import android.os.Bundle;
 
 import com.example.buganizerparse.R;
 import com.parse.Parse;
+import com.parse.ParseException;
 import com.parse.ParseObject;
+import com.parse.ParseQuery;
+import com.parse.FindCallback;
 import android.util.Log;
 import android.os.Bundle;
 import android.content.Intent;
@@ -32,6 +35,18 @@ public class BuganizerparseActivity extends ListActivity {
     private ArrayAdapter<String> listAdapter ;
     private ArrayList<ParseObject> pList;
     
+    public ParseObject GetParseObjectById(String objectid)
+    {
+    	for (ParseObject p: pList) {
+    		String oid = p.getObjectId();
+    		Log.d("BuganizerparseActivity", "looping through " + oid); 
+    		if (oid.equals(objectid) == true) {
+    			return p;
+    		}
+    	}
+    			
+    	return null;
+    }
     /** Called when the activity is first created. */
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -57,10 +72,22 @@ public class BuganizerparseActivity extends ListActivity {
     	listAdapter = new ArrayAdapter<String>(this, R.layout.bug_row); 
     	setListAdapter(listAdapter);
     	
-    	for (ParseObject p : pHelper.GetBugs()) {
-    		Log.d("BuganizerparseActivity", "found one bug: " + p.getCreatedAt());
-    		AddBugToList(p);
-    	}
+		pHelper.GetBugs(new FindCallback() {
+		    public void done(List<ParseObject> scoreList, ParseException e) {
+		        if (e == null) {
+		            Log.d("BuganizerparseActivity", "Retrieved " + scoreList.size() + " objects");
+		        } else {
+		            Log.d("BuganizerparseActivity", "Error: " + e.getMessage());
+		        }
+		        
+		        for (ParseObject p : scoreList)
+		        {
+		    		Log.d("BuganizerparseActivity", "found one bug: " + p.getCreatedAt());
+		        	AddBugToList(p);
+		        }
+		    }
+		});
+		
     }
     
     @Override
@@ -87,15 +114,10 @@ public class BuganizerparseActivity extends ListActivity {
     @Override
     protected void onListItemClick(ListView l, View v, int position, long id) {
         super.onListItemClick(l, v, position, id);
-        ParseObject ff = pList.get(position);
+        final ParseObject ff = pList.get(position);
 		Log.d("BuganizerparseActivity", "onListItemClick: Clicked on bug: " + ff.getString(BuganizerParseConstants.title) + " created at TS: " + ff.getCreatedAt() );
-
+		
         Intent i = new Intent(this, BuganizerParseEdit.class);
-        i.putExtra(BuganizerParseConstants.title, ff.getString(BuganizerParseConstants.title));
-        i.putExtra(BuganizerParseConstants.body, ff.getString(BuganizerParseConstants.body));
-        i.putExtra(BuganizerParseConstants.assignedto, ff.getString(BuganizerParseConstants.assignedto));
-        i.putExtra(BuganizerParseConstants.owner, ff.getString(BuganizerParseConstants.owner));
-        i.putExtra(BuganizerParseConstants.createdts, ff.getCreatedAt());
         i.putExtra(BuganizerParseConstants.objectid, ff.getObjectId());
         
         startActivityForResult(i, ACTIVITY_BUG_EDIT);
@@ -126,12 +148,23 @@ public class BuganizerparseActivity extends ListActivity {
                 ArrayList<String> ap;
                 ap = extras.getStringArrayList(BuganizerParseConstants.comments);
 
-                for (String s : ap) {
-            		Log.d("BuganizerparseActivity", "Adding comment: " + s);  
-                }
+                Log.d("BuganizerparseActivity", "object id " + _id); 
+                ParseObject pi = GetParseObjectById(_id);
                 
-        		Log.d("BuganizerparseActivity", "onActivityResult:ACTIVITY_BUG_EDIT saving bug "+_id);
-                Toast.makeText(getBaseContext(), "Saved ", Toast.LENGTH_SHORT).show();
+                if (pi != null) 
+                {
+                	Log.d("BuganizerparseActivity", "onActivityResult:ACTIVITY_BUG_EDIT saving bugid: " +_id + " title: "+ pi.getString(BuganizerParseConstants.title));
+
+	                for (String s : ap) {
+	            		Log.d("BuganizerparseActivity", "Adding comment: " + s);  
+	            		ParseObject tt = pHelper.AddComment(s, pi);
+	            		Log.d("BuganizerparseActivity", "object is : " + tt.getObjectId());  
+
+	                }
+	                                
+                	Log.d("BuganizerparseActivity", "onActivityResult:ACTIVITY_BUG_EDIT saving bug "+ pi.getString(BuganizerParseConstants.title));
+                	Toast.makeText(getBaseContext(), "Saved ", Toast.LENGTH_SHORT).show();
+                }
                 break;
         }
     }

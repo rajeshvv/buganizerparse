@@ -36,6 +36,16 @@ public class ParseDBHelper {
 		foo = null;
 	}
 
+	public ParseObject AddComment(String comment, ParseObject p)
+	{
+        ParseObject cmt = new ParseObject("CommentObject");
+        cmt.put(BuganizerParseConstants.comments, comment);
+        cmt.put("bug", p);
+        cmt.saveInBackground();
+		return cmt;
+	}
+	
+	
 	public ParseObject CreateBug(String own, String assto, String t, String b)
 	{
         ParseObject testObject = new ParseObject("BugObject");
@@ -57,31 +67,11 @@ public class ParseDBHelper {
 		return testObject;
 	}
 	
-	public List<ParseObject> GetBugs()
+	public void GetBugs(FindCallback fb)
 	{
-		List<ParseObject> fool = null;
-
 		ParseQuery query = new ParseQuery("BugObject");
-		query.setCachePolicy(ParseQuery.CachePolicy.NETWORK_ELSE_CACHE);
-		try {
-			fool = query.find();
-		} catch (ParseException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-		/**
-		query.findInBackground(new FindCallback() {
-		    public void done(List<ParseObject> scoreList, ParseException e) {
-		        if (e == null) {
-		            Log.d("ParseDBHelper", "Retrieved " + scoreList.size() + " scores");
-		        } else {
-		            Log.d("ParseDBHelper", "Error: " + e.getMessage());
-		        }
-		        foo = scoreList;chro
-		    }chr
-		});
-		*/
+		query.findInBackground(fb);
         Log.d("ParseDBHelper", "Returning bugs");
-        return fool;
+        return ;
 	}
 }

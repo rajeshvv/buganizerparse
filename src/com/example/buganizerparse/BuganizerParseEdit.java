@@ -4,6 +4,12 @@ package com.example.buganizerparse;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+
+import com.parse.FindCallback;
+import com.parse.ParseException;
+import com.parse.ParseObject;
+import com.parse.ParseQuery;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -23,6 +29,7 @@ public class BuganizerParseEdit extends Activity {
     private TextView mCreatedTS;
     private LinearLayout mLinLayout;
     private String objectid;
+    private ParseObject pObject;
 
     private ArrayList<String> arrayPeople;
     
@@ -50,28 +57,37 @@ public class BuganizerParseEdit extends Activity {
         Button bsave = (Button) findViewById(R.id.BugSave);
         Button bAddComment = (Button) findViewById(R.id.AddComment);
 
-		Log.d("BuganizerEditActivity", "hare krsna showing bug details ");
+		Log.d("BuganizerParseEdit", "hare krsna showing bug details ");
 
         Bundle extras = getIntent().getExtras();
 
         if (extras != null) {
-        	
+
+            objectid = extras.getString(BuganizerParseConstants.objectid);
+    		Log.d("BuganizerParseEdit", "object id is  "+objectid);
+    		
+    		ParseQuery query = new ParseQuery("BugObject");
+    		try {
+    			pObject = query.get(objectid);
+    		} catch (ParseException e1) {
+    			e1.printStackTrace();
+    		}
+    		
+    		
             mAssTo = (TextView) findViewById(R.id.EditBugAssignedTo);
             mDetails = (TextView) findViewById(R.id.EditBugDetails);
             mTitle = (TextView) findViewById(R.id.EditBugTitle);
             mCreatedTS = (TextView) findViewById(R.id.EditBugCreatedTS);
             
-            String title = extras.getString(BuganizerParseConstants.title);
-            String body = extras.getString(BuganizerParseConstants.body);
-            String assto = extras.getString(BuganizerParseConstants.assignedto);
-            Date ts2 = (Date) extras.get(BuganizerParseConstants.createdts);
+            String title = pObject.getString(BuganizerParseConstants.title);
+            String body = pObject.getString(BuganizerParseConstants.body);
+            String assto = pObject.getString(BuganizerParseConstants.assignedto);
+            Date ts2 =  pObject.getCreatedAt();
+            
     		SimpleDateFormat dateFormatISO8601 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
     		
     		String ts = dateFormatISO8601.format(ts2);
     		
-            objectid = extras.getString(BuganizerParseConstants.objectid);
-
-    		Log.d("BuganizerParseEdit", "object id is  "+objectid);
 
             
             if (title != null) {
@@ -90,6 +106,23 @@ public class BuganizerParseEdit extends Activity {
 
         GetCommentsForBug();
 
+		// fetch the comments first in the background
+		ParseQuery query = new ParseQuery("CommentObject");
+		query.whereEqualTo("bug", pObject);
+		query.findInBackground(new FindCallback() {
+
+		@Override
+		public void done(List<ParseObject> objects, ParseException arg1) {
+			
+			// TODO Auto-generated method stub
+			for (ParseObject ob : objects)
+			{
+				Log.d("BuganizerParseEdit", "comments are : " + ob.getString(BuganizerParseConstants.comments) + " created at TS: " + ob.getCreatedAt());	
+				AddCommentView(ob.getString(BuganizerParseConstants.comments), "", "", false);
+			}
+		}
+		});
+		
         bAddComment.setOnClickListener(new View.OnClickListener() {
 
             public void onClick(View view) {
