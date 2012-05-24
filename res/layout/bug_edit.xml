@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/ScrollView02"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:scrollbars="vertical">
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent">
+    
+    <LinearLayout
+        android:id="@+id/EditVertLayout"
+        android:layout_width="fill_parent"
+        android:orientation="vertical"
+        android:layout_height="wrap_content">
+	   
+       <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    		android:layout_width="fill_parent"
+    		android:layout_height="fill_parent">   
+    	    
+           <TableRow>
+		       <TextView
+			        android:textSize="9sp"
+		            android:text="Title:  "></TextView>
+		                
+		        <TextView
+		            android:id="@+id/EditBugTitle"></TextView>
+	        
+		    </TableRow>
+	   </TableLayout>
+	   	
+        
+        <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    		android:layout_width="fill_parent"
+    		android:layout_height="fill_parent">   
+    	    
+           <TableRow>
+		       <TextView
+			        android:textSize="9sp"
+		            android:text="Assigned To:  "></TextView>
+		                
+		        <TextView
+		            android:id="@+id/EditBugAssignedTo"></TextView>
+	        
+		    </TableRow>
+	   </TableLayout>
+	   
+        <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    		android:layout_width="fill_parent"
+    		android:layout_height="fill_parent">
+    
+	        <TableRow>
+	
+		       <TextView
+		           android:textSize="9sp"
+		            android:text="Created TS:   "></TextView>
+		       
+		       <TextView
+		            android:id="@+id/EditBugCreatedTS"></TextView>
+		       
+		    </TableRow>
+	   </TableLayout>
+
+       <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:textSize="9sp"
+            android:text="Description:"></TextView>
+              
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content" 
+            android:id="@+id/EditBugDetails"></TextView>
+
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:textSize="9sp"
+            android:text="Comments: "></TextView>
+
+                
+     </LinearLayout>
+        
+
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent">
+	        
+            <EditText
+            android:id="@+id/BugCommentAdd"
+            android:layout_height="wrap_content"
+            android:hint="Add bug comment"
+            android:background="@android:drawable/editbox_background"
+            android:layout_width="fill_parent"></EditText>
+                
+			<Button
+			android:id="@+id/BugSave"
+			android:layout_below="@id/BugCommentAdd"
+			android:layout_height="wrap_content"
+			android:layout_width="wrap_content"
+			android:layout_alignParentRight="true"
+			android:text="Save"
+			>
+			</Button>
+			<Button
+			android:id="@+id/AddComment"
+			android:layout_height="wrap_content"
+			android:layout_width="wrap_content"
+			android:text="Add Comment"
+			android:layout_toLeftOf="@id/BugSave"
+       		android:layout_alignTop="@id/BugSave"
+			>
+			</Button>
+	  </RelativeLayout>
+    </LinearLayout>
+</ScrollView>
