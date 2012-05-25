@@ -10,6 +10,7 @@ import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
+import com.parse.ParseUser;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -17,6 +18,7 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
 import android.widget.*;
 
 
@@ -49,7 +51,21 @@ public class BuganizerParseEdit extends Activity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        final boolean customTitle= requestWindowFeature(Window.FEATURE_CUSTOM_TITLE);
+        
         setContentView(R.layout.bug_edit);
+        
+        if ( customTitle ) {
+            getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.title_layout);
+        }
+        
+        TextView tt = (TextView) findViewById(R.id.logout);
+        tt.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Log.d("BuganizerParseEdit", "logout clicked ");
+                ParseUser.logOut();
+            }
+        });
         
         arrayPeople = new ArrayList<String>();        
         mLinLayout = (LinearLayout)findViewById(R.id.EditVertLayout);

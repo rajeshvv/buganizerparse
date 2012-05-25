@@ -24,6 +24,7 @@ public class BuganizerCreateParseBugActivity extends Activity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        
         setContentView(R.layout.main);
 
         Button bcreate = (Button) findViewById(R.id.BugCreate);

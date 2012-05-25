@@ -13,6 +13,8 @@ import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.FindCallback;
+import com.parse.ParseUser;
+
 import android.util.Log;
 import android.os.Bundle;
 import android.content.Intent;
@@ -21,10 +23,13 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.SimpleCursorAdapter;
+import android.widget.TextView;
 import android.app.ListActivity;
 import android.widget.Toast;
 
@@ -56,8 +61,22 @@ public class BuganizerparseActivity extends ListActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        final boolean customTitle= requestWindowFeature(Window.FEATURE_CUSTOM_TITLE);
+
         setContentView(R.layout.bug_list);
-        Parse.initialize(this, "btey3ycfZUjgaHGJ9oqcBGqrXKmbHUZdmII3uuRC", "td9S6OKDPTTYHc3WwueSPKAyMwpKNxcUQoI8lZdR"); 
+
+        if ( customTitle ) {
+            getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.title_layout);
+        }
+        
+        TextView tt = (TextView) findViewById(R.id.logout);
+        tt.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Log.d("BuganizerparseActivity", "logout clicked ");
+                ParseUser.logOut();
+            }
+        });
+        
         pHelper = new ParseDBHelper();
         pList = new ArrayList<ParseObject>();
         mylist = new ArrayList<HashMap<String, String>>();

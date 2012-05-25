@@ -6,9 +6,10 @@
     
     <application
         android:icon="@drawable/ic_launcher"
-        android:label="@string/app_name" >
+        android:label="@string/app_name" 
+        android:theme="@style/CustomTheme">
         <activity
-            android:name=".BuganizerparseActivity"
+            android:name=".BuganizerCreateParseUserActivity"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -18,6 +19,7 @@
         </activity>
         <activity android:name=".BuganizerCreateParseBugActivity"></activity>
         <activity android:name=".BuganizerParseEdit"></activity>
+        <activity android:name=".BuganizerparseActivity"></activity>
         
     </application>
 </manifest>
