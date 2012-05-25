@@ -15,19 +15,20 @@ public final class R {
     }
     public static final class id {
         public static final int AddComment=0x7f050008;
-        public static final int BugAssignedTo=0x7f05000c;
+        public static final int BugAssignedTo=0x7f05000d;
         public static final int BugCommentAdd=0x7f050006;
-        public static final int BugCreate=0x7f05000e;
-        public static final int BugDetails=0x7f05000d;
+        public static final int BugCreate=0x7f05000f;
+        public static final int BugDetails=0x7f05000e;
         public static final int BugSave=0x7f050007;
-        public static final int BugTitle=0x7f05000b;
+        public static final int BugTitle=0x7f05000c;
         public static final int EditBugAssignedTo=0x7f050003;
         public static final int EditBugCreatedTS=0x7f050004;
         public static final int EditBugDetails=0x7f050005;
         public static final int EditBugTitle=0x7f050002;
         public static final int EditVertLayout=0x7f050001;
         public static final int ScrollView02=0x7f050000;
-        public static final int TextViewTitle=0x7f05000a;
+        public static final int TextViewTitle=0x7f05000b;
+        public static final int bugown=0x7f05000a;
         public static final int bugrow=0x7f050009;
     }
     public static final class layout {

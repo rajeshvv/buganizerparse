@@ -1,6 +1,7 @@
 package com.example.buganizerparse;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import android.app.Activity;
@@ -22,6 +23,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.SimpleAdapter;
 import android.widget.SimpleCursorAdapter;
 import android.app.ListActivity;
 import android.widget.Toast;
@@ -32,7 +34,10 @@ public class BuganizerparseActivity extends ListActivity {
     private static final int ACTIVITY_BUG_CREATE=0;
     private static final int ACTIVITY_BUG_EDIT=1;
     private ParseDBHelper pHelper;
-    private ArrayAdapter<String> listAdapter ;
+  //  private ArrayAdapter<String> listAdapter ;
+    private SimpleAdapter listAdapter ;
+
+    private ArrayList<HashMap<String, String>> mylist;
     private ArrayList<ParseObject> pList;
     
     public ParseObject GetParseObjectById(String objectid)
@@ -55,11 +60,17 @@ public class BuganizerparseActivity extends ListActivity {
         Parse.initialize(this, "btey3ycfZUjgaHGJ9oqcBGqrXKmbHUZdmII3uuRC", "td9S6OKDPTTYHc3WwueSPKAyMwpKNxcUQoI8lZdR"); 
         pHelper = new ParseDBHelper();
         pList = new ArrayList<ParseObject>();
-        
+        mylist = new ArrayList<HashMap<String, String>>();
+    	HashMap<String, String> map = new HashMap<String, String>();
+    	map.put(BuganizerParseConstants.title, "Title");
+    	map.put(BuganizerParseConstants.assignedto, "Assigned to");
+    	mylist.add(map);
+    	
         populate();
 		Log.d("BuganizerparseActivity", "Displaying bug list");
 
     }
+    
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         super.onCreateOptionsMenu(menu);
@@ -69,7 +80,10 @@ public class BuganizerparseActivity extends ListActivity {
 
     public void populate()
     {
-    	listAdapter = new ArrayAdapter<String>(this, R.layout.bug_row); 
+    	listAdapter = new SimpleAdapter(this, mylist, R.layout.bug_row, new String [] {BuganizerParseConstants.title, BuganizerParseConstants.assignedto}, 
+    			new int [] {R.id.bugrow, R.id.bugown});
+    	
+    //	listAdapter = new ArrayAdapter<String>(this, R.layout.bug_row); 
     	setListAdapter(listAdapter);
     	
 		pHelper.GetBugs(new FindCallback() {
@@ -105,9 +119,14 @@ public class BuganizerparseActivity extends ListActivity {
     
     public void AddBugToList(ParseObject p)
     {
-    	String title = p.getString("title");
+    	HashMap<String, String> map = new HashMap<String, String>();
+    	String title = p.getString(BuganizerParseConstants.title);
+    	String ato = p.getString(BuganizerParseConstants.assignedto);
     	pList.add(p);
-    	listAdapter.add(title);
+    	map.put(BuganizerParseConstants.title, title);
+    	map.put(BuganizerParseConstants.assignedto, ato);
+    	mylist.add(map);
+    	listAdapter.notifyDataSetChanged();
 		Log.d("BuganizerparseActivity", "AddBugToList: Adding bug with title: " + title + " created at TS: " + p.getCreatedAt() );
     }
 
