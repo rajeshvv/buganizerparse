@@ -53,6 +53,7 @@ public final class R {
         public static final int hintassignedto=0x7f050006;
         public static final int hintbugdetails=0x7f050007;
         public static final int hintbugtitle=0x7f050005;
+        public static final int logoutstr=0x7f050009;
         public static final int menu_insert=0x7f050003;
         public static final int no_bugs=0x7f050002;
     }

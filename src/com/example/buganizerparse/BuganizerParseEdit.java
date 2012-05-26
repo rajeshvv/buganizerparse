@@ -15,7 +15,6 @@ import com.parse.ParseUser;
 import android.app.Activity;
 import android.os.Bundle;
 import android.content.Intent;
-import android.database.Cursor;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
@@ -52,6 +51,7 @@ public class BuganizerParseEdit extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         final boolean customTitle= requestWindowFeature(Window.FEATURE_CUSTOM_TITLE);
+        final Intent i = new Intent(this, BuganizerCreateParseUserActivity.class);
         
         setContentView(R.layout.bug_edit);
         
@@ -64,6 +64,7 @@ public class BuganizerParseEdit extends Activity {
             public void onClick(View v) {
                 Log.d("BuganizerParseEdit", "logout clicked ");
                 ParseUser.logOut();
+                startActivity(i);
             }
         });
         

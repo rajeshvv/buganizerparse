@@ -4,31 +4,24 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import android.app.Activity;
 import android.os.Bundle;
 
 import com.example.buganizerparse.R;
-import com.parse.Parse;
 import com.parse.ParseException;
 import com.parse.ParseObject;
-import com.parse.ParseQuery;
 import com.parse.FindCallback;
 import com.parse.ParseUser;
 
 import android.util.Log;
-import android.os.Bundle;
 import android.content.Intent;
-import android.database.Cursor;
-import android.util.Log;
+
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
+
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
-import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
 import android.app.ListActivity;
 import android.widget.Toast;
@@ -62,6 +55,7 @@ public class BuganizerparseActivity extends ListActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         final boolean customTitle= requestWindowFeature(Window.FEATURE_CUSTOM_TITLE);
+        final Intent i = new Intent(this, BuganizerCreateParseUserActivity.class);
 
         setContentView(R.layout.bug_list);
 
@@ -74,6 +68,7 @@ public class BuganizerparseActivity extends ListActivity {
             public void onClick(View v) {
                 Log.d("BuganizerparseActivity", "logout clicked ");
                 ParseUser.logOut();
+                startActivity(i);
             }
         });
         
@@ -152,13 +147,20 @@ public class BuganizerparseActivity extends ListActivity {
     @Override
     protected void onListItemClick(ListView l, View v, int position, long id) {
         super.onListItemClick(l, v, position, id);
-        final ParseObject ff = pList.get(position);
-		Log.d("BuganizerparseActivity", "onListItemClick: Clicked on bug: " + ff.getString(BuganizerParseConstants.title) + " created at TS: " + ff.getCreatedAt() );
-		
-        Intent i = new Intent(this, BuganizerParseEdit.class);
-        i.putExtra(BuganizerParseConstants.objectid, ff.getObjectId());
+		Log.d("BuganizerparseActivity", "onListItemClick: Clicked on bug position: " + position );
+
+        int actual = position-1;
         
-        startActivityForResult(i, ACTIVITY_BUG_EDIT);
+        if (actual >= 0)
+        {
+	        final ParseObject ff = pList.get(actual);
+			Log.d("BuganizerparseActivity", "onListItemClick: Clicked on bug: " + ff.getString(BuganizerParseConstants.title) + " created at TS: " + ff.getCreatedAt() );
+			
+	        Intent i = new Intent(this, BuganizerParseEdit.class);
+	        i.putExtra(BuganizerParseConstants.objectid, ff.getObjectId());
+	        
+	        startActivityForResult(i, ACTIVITY_BUG_EDIT);
+        }
     }
     
     @Override

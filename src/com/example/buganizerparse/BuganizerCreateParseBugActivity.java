@@ -5,16 +5,16 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.content.Intent;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.EditText;
-import android.widget.Spinner;
-import com.example.buganizerparse.R;
 
-import android.widget.Toast;
+import android.widget.TextView;
+
+import com.example.buganizerparse.R;
+import com.parse.ParseUser;
+
 
 
 public class BuganizerCreateParseBugActivity extends Activity {
@@ -24,9 +24,24 @@ public class BuganizerCreateParseBugActivity extends Activity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        final boolean customTitle= requestWindowFeature(Window.FEATURE_CUSTOM_TITLE);
+        final Intent i = new Intent(this, BuganizerCreateParseUserActivity.class);
         
         setContentView(R.layout.main);
 
+        if ( customTitle ) {
+            getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.title_layout);
+        }
+        
+        TextView tt = (TextView) findViewById(R.id.logout);
+        tt.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Log.d("BuganizerCreateParseBugActivity", "logout clicked ");
+                ParseUser.logOut();
+                startActivity(i);
+            }
+        });
+        
         Button bcreate = (Button) findViewById(R.id.BugCreate);
 
 		Log.d("BuganizerCreateParseBugActivity", "hare krsna ->Create Bug on Parse.com");

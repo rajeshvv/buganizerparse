@@ -14,7 +14,6 @@ import android.widget.EditText;
 
 import com.example.buganizerparse.R;
 
-import android.widget.Toast;
 import com.parse.*;
 
 public class BuganizerCreateParseUserActivity extends Activity {
