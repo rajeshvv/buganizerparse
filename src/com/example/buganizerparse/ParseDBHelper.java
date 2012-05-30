@@ -2,10 +2,13 @@ package com.example.buganizerparse;
 
 import java.util.List;
 
+import com.parse.ParseACL;
 import com.parse.ParseObject;
 import com.parse.FindCallback;
 import com.parse.ParseQuery;
 import com.parse.ParseException;
+import com.parse.ParseUser;
+
 import android.util.Log;
 
 
@@ -29,7 +32,7 @@ public class ParseDBHelper {
 	}
 	
 	
-	public ParseObject CreateBug(String own, String assto, String t, String b, int priority)
+	public ParseObject CreateBug(String own, String assto, String t, String b, int priority, boolean ACL)
 	{
         ParseObject testObject = new ParseObject("BugObject");
         testObject.put(BuganizerParseConstants.owner, own);
@@ -37,7 +40,12 @@ public class ParseDBHelper {
         testObject.put(BuganizerParseConstants.title, t);
         testObject.put(BuganizerParseConstants.body, b);
         testObject.put(BuganizerParseConstants.priority, priority);
-        
+
+		if (ACL == true)
+		{
+			testObject.setACL(new ParseACL(ParseUser.getCurrentUser()));
+			Log.d("ParseDBHelper", "Saving bug: " + t + " with ACL" );
+		}
         
 		Log.d("ParseDBHelper", "Saving Bug with title: " + t);
 		
@@ -51,6 +59,7 @@ public class ParseDBHelper {
 		Log.d("ParseDBHelper", "Created at timestamp: " + testObject.getCreatedAt());
 		return testObject;
 	}
+
 	
 	public void GetBugs(FindCallback fb)
 	{

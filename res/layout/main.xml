@@ -43,7 +43,13 @@
             android:background="@android:drawable/editbox_background"
             android:lines="5"
             android:layout_width="fill_parent"></EditText>
-
+        
+ 		<CheckBox
+	        android:id="@+id/chkprivate"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:text="Mark as Private" />
+ 
         <Button
             android:id="@+id/BugCreate"
             android:layout_height="wrap_content"

@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 
 import android.widget.TextView;
@@ -60,9 +61,14 @@ public class BuganizerCreateParseBugActivity extends Activity {
         		final EditText bassto = (EditText) findViewById(R.id.BugAssignedTo);
         		String assto = bassto.getText().toString();
         		
+        		final CheckBox chk = (CheckBox) findViewById(R.id.chkprivate);
+        		boolean checked = chk.isChecked();
+        		
                 bundle.putString(BuganizerParseConstants.title, bugtitle);
                 bundle.putString(BuganizerParseConstants.body, bugbody);
                 bundle.putString(BuganizerParseConstants.assignedto, assto);
+                bundle.putBoolean(BuganizerParseConstants.markedprivate, checked);
+                
                 
                 Intent mIntent = new Intent();
                 mIntent.putExtras(bundle);

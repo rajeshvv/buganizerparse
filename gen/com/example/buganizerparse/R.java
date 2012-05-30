@@ -17,7 +17,7 @@ public final class R {
         public static final int AddComment=0x7f060009;
         public static final int BugAssignedTo=0x7f060012;
         public static final int BugCommentAdd=0x7f060007;
-        public static final int BugCreate=0x7f060014;
+        public static final int BugCreate=0x7f060015;
         public static final int BugDetails=0x7f060013;
         public static final int BugSave=0x7f060008;
         public static final int BugTitle=0x7f060011;
@@ -35,8 +35,9 @@ public final class R {
         public static final int TextViewTitle=0x7f060010;
         public static final int bugown=0x7f06000b;
         public static final int bugrow=0x7f06000a;
-        public static final int logout=0x7f060016;
-        public static final int titleofappe=0x7f060015;
+        public static final int chkprivate=0x7f060014;
+        public static final int logout=0x7f060017;
+        public static final int titleofappe=0x7f060016;
     }
     public static final class layout {
         public static final int bug_edit=0x7f030000;

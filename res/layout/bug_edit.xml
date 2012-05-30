@@ -64,6 +64,22 @@
 		    </TableRow>
 	   </TableLayout>
 
+       <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    		android:layout_width="fill_parent"
+    		android:layout_height="fill_parent">
+    
+	        <TableRow>
+	
+		       <TextView
+		           android:textSize="9sp"
+		            android:text="Priority:   "></TextView>
+		       
+		       <TextView
+		            android:id="@+id/EditBugPriority"></TextView>
+		       
+		    </TableRow>
+	   </TableLayout>
+        
        <TextView
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"

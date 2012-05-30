@@ -18,5 +18,6 @@ public class BuganizerParseConstants {
 	public static String objectid = "oid";
 	public static String comments = "comments";
 	public static String priority = "priority";
+	public static String markedprivate = "SetACL";
 
 }

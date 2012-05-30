@@ -3,5 +3,21 @@
 
     <string name="hello">Hello World, BuganizerparseActivity!</string>
     <string name="app_name">Buganizerparse</string>
-
+    <string
+        name="no_bugs">No Bugs Created!</string>
+     <string
+        name="menu_insert">New Bug</string>
+    <string
+        name="feedbacktitle">Enter Bug Details:
+    </string>
+    <string
+        name="hintbugtitle">Title</string>
+    <string
+        name="hintassignedto">assigned to?</string>
+    <string
+        name="hintbugdetails">Enter Details of the bug..</string>
+    <string
+        name="bugcreatebtn">Create Bug</string>
+    
+    <string name="logoutstr"><u><b><i>logout</i></b></u></string> 
 </resources>

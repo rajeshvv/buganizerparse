@@ -8,15 +8,17 @@
          android:id = "@+id/titleofappe"
          android:layout_width="wrap_content"
          android:layout_height="wrap_content"
-         android:text = "Buganizer Parse"
+         android:text = "Welcome"
          android:layout_alignParentLeft="true"/>
      
       <TextView
             android:id="@+id/logout"
             android:layout_toRightOf="@+id/titleofappe"
             android:layout_height="wrap_content"
-            android:text="logout"
+            android:text="@string/logoutstr"
+            android:textColor="#ffccddff"
             android:clickable="true"
+            android:textStyle="bold|italic"
             android:gravity="right"
             android:layout_width="fill_parent"></TextView>
  

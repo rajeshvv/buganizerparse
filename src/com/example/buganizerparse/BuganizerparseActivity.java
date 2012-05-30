@@ -7,6 +7,7 @@ import java.util.List;
 import android.os.Bundle;
 
 import com.example.buganizerparse.R;
+import com.parse.ParseACL;
 import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.FindCallback;
@@ -139,6 +140,7 @@ public class BuganizerparseActivity extends ListActivity {
 		        for (ParseObject p : scoreList)
 		        {
 		    		Log.d("BuganizerparseActivity", "found one bug: " + p.getCreatedAt());
+		    		
 		        	AddBugToList(p);
 		        }
 		    }
@@ -160,7 +162,7 @@ public class BuganizerparseActivity extends ListActivity {
     }
     
     public void AddBugToList(ParseObject p)
-    {
+    {    	
     	HashMap<String, String> map = new HashMap<String, String>();
     	String title = p.getString(BuganizerParseConstants.title);
     	String ato = p.getString(BuganizerParseConstants.assignedto);
@@ -203,9 +205,11 @@ public class BuganizerparseActivity extends ListActivity {
                 String title = extras.getString(BuganizerParseConstants.title);
                 String body = extras.getString(BuganizerParseConstants.body);
                 String assto = extras.getString(BuganizerParseConstants.assignedto);
+                boolean checked = extras.getBoolean(BuganizerParseConstants.markedprivate);
+                
         		Log.d("BuganizerparseActivity", "title = " + title + " body= " + body);
         		
-        		pp = pHelper.CreateBug("ag", assto, title, body, 1);
+        		pp = pHelper.CreateBug("ag", assto, title, body, 1, checked);
                 Toast.makeText(getBaseContext(), "Created Title: " + title, Toast.LENGTH_SHORT).show();
                 AddBugToList(pp);
                 break;
