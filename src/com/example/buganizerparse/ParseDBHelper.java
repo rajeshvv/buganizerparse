@@ -29,13 +29,15 @@ public class ParseDBHelper {
 	}
 	
 	
-	public ParseObject CreateBug(String own, String assto, String t, String b)
+	public ParseObject CreateBug(String own, String assto, String t, String b, int priority)
 	{
         ParseObject testObject = new ParseObject("BugObject");
         testObject.put(BuganizerParseConstants.owner, own);
         testObject.put(BuganizerParseConstants.assignedto, assto);
         testObject.put(BuganizerParseConstants.title, t);
         testObject.put(BuganizerParseConstants.body, b);
+        testObject.put(BuganizerParseConstants.priority, priority);
+        
         
 		Log.d("ParseDBHelper", "Saving Bug with title: " + t);
 		

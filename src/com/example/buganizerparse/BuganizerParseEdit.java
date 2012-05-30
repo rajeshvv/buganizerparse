@@ -28,6 +28,7 @@ public class BuganizerParseEdit extends Activity {
     private TextView mDetails;
     private TextView mTitle;
     private TextView mCreatedTS;
+    private TextView mPriority;
     private LinearLayout mLinLayout;
     private String objectid;
     private ParseObject pObject;
@@ -95,11 +96,14 @@ public class BuganizerParseEdit extends Activity {
             mDetails = (TextView) findViewById(R.id.EditBugDetails);
             mTitle = (TextView) findViewById(R.id.EditBugTitle);
             mCreatedTS = (TextView) findViewById(R.id.EditBugCreatedTS);
+            mPriority = (TextView) findViewById(R.id.EditBugPriority);
+
             
             String title = pObject.getString(BuganizerParseConstants.title);
             String body = pObject.getString(BuganizerParseConstants.body);
             String assto = pObject.getString(BuganizerParseConstants.assignedto);
             Date ts2 =  pObject.getCreatedAt();
+            int pri = pObject.getInt(BuganizerParseConstants.priority);
             
     		SimpleDateFormat dateFormatISO8601 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
     		
@@ -118,6 +122,13 @@ public class BuganizerParseEdit extends Activity {
             }
             if (ts != null) {
             	mCreatedTS.setText(ts);
+            }
+            if (pri != 0){
+            	mPriority.setText(Integer.toString(pri));
+            }
+            else
+            {
+            	mPriority.setText("undefined");
             }
         }
 

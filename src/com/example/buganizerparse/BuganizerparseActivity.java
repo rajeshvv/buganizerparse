@@ -80,9 +80,37 @@ public class BuganizerparseActivity extends ListActivity {
     	map.put(BuganizerParseConstants.assignedto, "Assigned to");
     	mylist.add(map);
     	
+    	CreateUsers();
+    	
         populate();
 		Log.d("BuganizerparseActivity", "Displaying bug list");
 
+    }
+    
+    public void CreateUsers() {
+    	
+    	for(int i = 1;i <= 5;i++) {
+    		String uname = "user" + Integer.toString(i);
+    		String upass = "pass" + Integer.toString(i);
+    		
+    		ParseUser user = new ParseUser();
+    		user.setUsername(uname);
+    		user.setPassword(upass);
+    		
+    		try {
+    			user.signUp();
+    			
+    		} catch (ParseException e1) {
+    			if (e1.getCode() == ParseException.USERNAME_TAKEN) {
+    				Log.d("BuganizerparseActivity", "Users already created..exiting");
+    				break;
+    			}
+    			e1.printStackTrace();
+    		}
+    		
+    		Log.d("BuganizerparseActivity", "Created user: " + uname);
+    	}
+    	
     }
     
     @Override
@@ -177,7 +205,7 @@ public class BuganizerparseActivity extends ListActivity {
                 String assto = extras.getString(BuganizerParseConstants.assignedto);
         		Log.d("BuganizerparseActivity", "title = " + title + " body= " + body);
         		
-        		pp = pHelper.CreateBug("ag", assto, title, body);
+        		pp = pHelper.CreateBug("ag", assto, title, body, 1);
                 Toast.makeText(getBaseContext(), "Created Title: " + title, Toast.LENGTH_SHORT).show();
                 AddBugToList(pp);
                 break;

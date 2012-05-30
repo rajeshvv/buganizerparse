@@ -17,5 +17,6 @@ public class BuganizerParseConstants {
 	public static String createdts = "createdts";
 	public static String objectid = "oid";
 	public static String comments = "comments";
+	public static String priority = "priority";
 
 }
