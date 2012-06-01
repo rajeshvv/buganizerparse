@@ -34,6 +34,7 @@ public class BuganizerParseEdit extends Activity {
     private String objectid;
     private ParseObject pObject;
     private LinearLayout mLayout;
+    private static final int ACTIVITY_FRIEND_LIST_SHOW=2;
 
     private ArrayList<String> arrayPeople;
     
@@ -76,6 +77,7 @@ public class BuganizerParseEdit extends Activity {
         
         Button bsave = (Button) findViewById(R.id.BugSave);
         Button bAddComment = (Button) findViewById(R.id.AddComment);
+        Button bAddFriend = (Button) findViewById(R.id.AddUser);
 
 		Log.d("BuganizerParseEdit", "hare krsna showing bug details ");
 
@@ -185,6 +187,17 @@ public class BuganizerParseEdit extends Activity {
 
         });
         
+        bAddFriend.setOnClickListener(new View.OnClickListener() {
+
+            public void onClick(View view) {
+            	
+        		Log.d("BuganizerParseEdit", "Adding a user to bug... ");
+                Intent i2 = new Intent(BuganizerParseEdit.this, BuganizerListFriendsActivity.class);
+                BuganizerParseEdit.this.startActivityForResult(i2, ACTIVITY_FRIEND_LIST_SHOW);
+            }
+
+        });
+        
 		bsave.setOnClickListener(new View.OnClickListener() {
 
             public void onClick(View view) {
@@ -204,5 +217,15 @@ public class BuganizerParseEdit extends Activity {
             }
 
         });
+    }
+    
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
+        super.onActivityResult(requestCode, resultCode, intent);
+        switch(requestCode) {
+            case ACTIVITY_FRIEND_LIST_SHOW:
+        		Log.d("BuganizerParseEdit", "onActivityResult:ACTIVITY_FRIEND_LIST_SHOW");
+                break;
+        }
     }
 }

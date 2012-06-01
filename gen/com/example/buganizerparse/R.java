@@ -15,32 +15,33 @@ public final class R {
     }
     public static final class id {
         public static final int AddComment=0x7f060009;
-        public static final int BugAssignedTo=0x7f060015;
+        public static final int AddUser=0x7f06000a;
+        public static final int BugAssignedTo=0x7f060016;
         public static final int BugCommentAdd=0x7f060007;
-        public static final int BugCreate=0x7f060018;
-        public static final int BugDetails=0x7f060016;
+        public static final int BugCreate=0x7f060019;
+        public static final int BugDetails=0x7f060017;
         public static final int BugSave=0x7f060008;
-        public static final int BugTitle=0x7f060014;
+        public static final int BugTitle=0x7f060015;
         public static final int EditBugAssignedTo=0x7f060003;
         public static final int EditBugCreatedTS=0x7f060004;
         public static final int EditBugDetails=0x7f060006;
         public static final int EditBugPriority=0x7f060005;
         public static final int EditBugTitle=0x7f060002;
         public static final int EditVertLayout=0x7f060001;
-        public static final int LoginBtn=0x7f060012;
-        public static final int LoginPassword=0x7f060010;
-        public static final int LoginUserName=0x7f06000f;
-        public static final int Loginhere=0x7f060011;
+        public static final int LoginBtn=0x7f060013;
+        public static final int LoginPassword=0x7f060011;
+        public static final int LoginUserName=0x7f060010;
+        public static final int Loginhere=0x7f060012;
         public static final int ScrollView02=0x7f060000;
-        public static final int TextViewTitle=0x7f060013;
-        public static final int bugown=0x7f06000b;
-        public static final int bugrow=0x7f06000a;
-        public static final int chkone=0x7f06000e;
-        public static final int chkprivate=0x7f060017;
-        public static final int logout=0x7f06001a;
-        public static final int testbutton=0x7f06000c;
-        public static final int textviewone=0x7f06000d;
-        public static final int titleofappe=0x7f060019;
+        public static final int TextViewTitle=0x7f060014;
+        public static final int bugown=0x7f06000c;
+        public static final int bugrow=0x7f06000b;
+        public static final int chkone=0x7f06000f;
+        public static final int chkprivate=0x7f060018;
+        public static final int logout=0x7f06001b;
+        public static final int testbutton=0x7f06000d;
+        public static final int textviewone=0x7f06000e;
+        public static final int titleofappe=0x7f06001a;
     }
     public static final class layout {
         public static final int bug_edit=0x7f030000;
