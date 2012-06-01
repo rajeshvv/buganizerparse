@@ -7,6 +7,7 @@ import java.util.Date;
 import java.util.List;
 
 import com.parse.FindCallback;
+import com.parse.ParseACL;
 import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
@@ -32,6 +33,7 @@ public class BuganizerParseEdit extends Activity {
     private LinearLayout mLinLayout;
     private String objectid;
     private ParseObject pObject;
+    private LinearLayout mLayout;
 
     private ArrayList<String> arrayPeople;
     
@@ -97,6 +99,7 @@ public class BuganizerParseEdit extends Activity {
             mTitle = (TextView) findViewById(R.id.EditBugTitle);
             mCreatedTS = (TextView) findViewById(R.id.EditBugCreatedTS);
             mPriority = (TextView) findViewById(R.id.EditBugPriority);
+            mLayout = (LinearLayout) findViewById(R.id.EditVertLayout);
 
             
             String title = pObject.getString(BuganizerParseConstants.title);
@@ -104,6 +107,8 @@ public class BuganizerParseEdit extends Activity {
             String assto = pObject.getString(BuganizerParseConstants.assignedto);
             Date ts2 =  pObject.getCreatedAt();
             int pri = pObject.getInt(BuganizerParseConstants.priority);
+            
+            ParseACL ac = pObject.getACL();
             
     		SimpleDateFormat dateFormatISO8601 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
     		
@@ -130,6 +135,20 @@ public class BuganizerParseEdit extends Activity {
             {
             	mPriority.setText("undefined");
             }
+            
+            if (ac != null)
+            {
+            	Log.d("BuganizerParseEdit", "The bug has an ACL!");
+                if (ac.getWriteAccess(ParseUser.getCurrentUser()) == true)
+                {
+                    CheckBox chk= new CheckBox(this);
+                    chk.setChecked(true);
+                    chk.setText("Mark as private");
+                    mLayout.addView(chk,5);
+                }
+            }
+
+
         }
 
         GetCommentsForBug();

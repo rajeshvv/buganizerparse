@@ -20,6 +20,7 @@
         <activity android:name=".BuganizerCreateParseBugActivity"></activity>
         <activity android:name=".BuganizerParseEdit"></activity>
         <activity android:name=".BuganizerparseActivity"></activity>
+        <activity android:name=".BuganizerListFriendsActivity"></activity>
         
     </application>
 </manifest>

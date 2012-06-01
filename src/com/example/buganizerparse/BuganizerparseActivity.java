@@ -30,8 +30,11 @@ import android.widget.Toast;
 public class BuganizerparseActivity extends ListActivity {
 
     private static final int INSERT_ID = Menu.FIRST;
+    private static final int LIST_FRIENDS_ID = INSERT_ID + 1;
+    
     private static final int ACTIVITY_BUG_CREATE=0;
     private static final int ACTIVITY_BUG_EDIT=1;
+    private static final int ACTIVITY_FRIEND_LIST=2;
     private ParseDBHelper pHelper;
   //  private ArrayAdapter<String> listAdapter ;
     private SimpleAdapter listAdapter ;
@@ -118,6 +121,8 @@ public class BuganizerparseActivity extends ListActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         super.onCreateOptionsMenu(menu);
         menu.add(0, INSERT_ID, 0, R.string.menu_insert);
+        menu.add(0, LIST_FRIENDS_ID, 0, R.string.menu_listfriend);
+
         return true;
     }
 
@@ -155,6 +160,12 @@ public class BuganizerparseActivity extends ListActivity {
         		Log.d("BuganizerparseActivity", "onMenuItemSelected:INSERT_ID");
                 Intent i = new Intent(this, BuganizerCreateParseBugActivity.class);
                 startActivityForResult(i, ACTIVITY_BUG_CREATE);
+                return true;
+                
+            case LIST_FRIENDS_ID:
+        		Log.d("BuganizerparseActivity", "onMenuItemSelected:LIST_FRIENDS_ID");
+                Intent i2 = new Intent(this, BuganizerListFriendsActivity.class);
+                startActivityForResult(i2, ACTIVITY_FRIEND_LIST);
                 return true;
         }
 
@@ -213,7 +224,11 @@ public class BuganizerparseActivity extends ListActivity {
                 Toast.makeText(getBaseContext(), "Created Title: " + title, Toast.LENGTH_SHORT).show();
                 AddBugToList(pp);
                 break;
- 
+
+            case ACTIVITY_FRIEND_LIST:            	
+        		Log.d("BuganizerparseActivity", "onActivityResult:ACTIVITY_FRIEND_LIST");
+                break;
+                
             case ACTIVITY_BUG_EDIT:
         		Log.d("BuganizerparseActivity", "onActivityResult:ACTIVITY_BUG_EDIT");
                 String _id = extras.getString(BuganizerParseConstants.objectid);
