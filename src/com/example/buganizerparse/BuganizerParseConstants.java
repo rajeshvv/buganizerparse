@@ -21,5 +21,6 @@ public class BuganizerParseConstants {
 	public static String markedprivate = "SetACL";
 	public static String username = "username";
 	public static String password = "password";
+	public static String friendslist = "friendslist";
 
 }

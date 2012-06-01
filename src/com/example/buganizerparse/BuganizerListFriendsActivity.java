@@ -33,6 +33,7 @@ public class BuganizerListFriendsActivity extends ListActivity {
 
     private ArrayList<HashMap<String, String>> allpeople;
     private SimpleAdapter listAdapter ;
+    private ArrayList<String> friendstoadd;
 
 
     /** Called when the activity is first created. */
@@ -85,6 +86,8 @@ public class BuganizerListFriendsActivity extends ListActivity {
         
         
 		Log.d("BuganizerListFriendsActivity", "Listing all my friends");
+
+
     }
     
 
@@ -92,18 +95,31 @@ public class BuganizerListFriendsActivity extends ListActivity {
     public void onclickthis (View v) {
     	
     	ListView lv = this.getListView();
-    	
-    	for (int j = 0 ; j < 5; j++)
+    	int count = lv.getChildCount();
+        Intent mIntent = new Intent();
+        Bundle bundle = new Bundle();
+        
+        friendstoadd = new ArrayList<String>();        
+
+    	for (int j = 0 ; j < count; j++)
     	{
 	    	CheckBox v2 = (CheckBox) lv.getChildAt(j).findViewById(R.id.chkone);
 	    	
 	    	if (v2 != null)
 	    	{
-	    		Log.d("BuganizerListFriendsActivity", "onListItemClick: found one..." + v2.isChecked());	
+	    		if (v2.isChecked() == true)
+	    		{
+	    			HashMap<String, String> map = allpeople.get(j);
+	    			String username = map.get(BuganizerParseConstants.username);
+		    		Log.d("BuganizerListFriendsActivity", "onclickthis: user selected is: " + username);
+		    		friendstoadd.add(username);
+	    		}
 	    	}
     	}
-    	int foo = lv.getChildCount();
-		Log.d("BuganizerListFriendsActivity", "onListItemClick: Clicked on bug position: " + foo );
+        bundle.putStringArrayList(BuganizerParseConstants.friendslist, friendstoadd);
+        mIntent.putExtras(bundle);
+        setResult(RESULT_OK, mIntent);
+        finish();
     }
     
     public void AddUser(ParseUser username)
@@ -120,8 +136,6 @@ public class BuganizerListFriendsActivity extends ListActivity {
     	listAdapter = new SimpleAdapter(this, allpeople, R.layout.friends_row, new String [] {BuganizerParseConstants.username}, 
     			new int [] {R.id.textviewone});
     	
-    	//getListView().setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
-    //	listAdapter = new ArrayAdapter<String>(this, R.layout.bug_row); 
     	setListAdapter(listAdapter);
     }
 }
