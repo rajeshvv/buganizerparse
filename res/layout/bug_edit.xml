@@ -79,7 +79,8 @@
 		       
 		    </TableRow>
 	   </TableLayout>
-        
+
+        		
        <TextView
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
@@ -129,6 +130,15 @@
 			android:text="Add Comment"
 			android:layout_toLeftOf="@id/BugSave"
        		android:layout_alignTop="@id/BugSave"
+			>
+			</Button>
+			<Button
+			android:id="@+id/AddUser"
+			android:layout_height="wrap_content"
+			android:layout_width="wrap_content"
+			android:text="Add User"
+			android:layout_toLeftOf="@id/AddComment"
+       		android:layout_alignTop="@id/AddComment"
 			>
 			</Button>
 	  </RelativeLayout>
