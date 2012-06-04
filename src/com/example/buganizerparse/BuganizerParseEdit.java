@@ -35,8 +35,10 @@ public class BuganizerParseEdit extends Activity {
     private ParseObject pObject;
     private LinearLayout mLayout;
     private static final int ACTIVITY_FRIEND_LIST_SHOW=2;
-
+    private ParseACL acl;
+    
     private ArrayList<String> arrayPeople;
+
     
     public void GetCommentsForBug()
     {
@@ -72,7 +74,8 @@ public class BuganizerParseEdit extends Activity {
             }
         });
         
-        arrayPeople = new ArrayList<String>();        
+        arrayPeople = new ArrayList<String>();     
+        
         mLinLayout = (LinearLayout)findViewById(R.id.EditVertLayout);
         
         Button bsave = (Button) findViewById(R.id.BugSave);
@@ -110,7 +113,7 @@ public class BuganizerParseEdit extends Activity {
             Date ts2 =  pObject.getCreatedAt();
             int pri = pObject.getInt(BuganizerParseConstants.priority);
             
-            ParseACL ac = pObject.getACL();
+            acl = pObject.getACL();
             
     		SimpleDateFormat dateFormatISO8601 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
     		
@@ -138,10 +141,10 @@ public class BuganizerParseEdit extends Activity {
             	mPriority.setText("undefined");
             }
             
-            if (ac != null)
+            if (acl != null)
             {
             	Log.d("BuganizerParseEdit", "The bug has an ACL!");
-                if (ac.getWriteAccess(ParseUser.getCurrentUser()) == true)
+                if (acl.getWriteAccess(ParseUser.getCurrentUser()) == true)
                 {
                     CheckBox chk= new CheckBox(this);
                     chk.setChecked(true);
@@ -222,10 +225,30 @@ public class BuganizerParseEdit extends Activity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
         super.onActivityResult(requestCode, resultCode, intent);
+        Bundle extras = intent.getExtras();
         switch(requestCode) {
             case ACTIVITY_FRIEND_LIST_SHOW:
+            	ArrayList<String> flist;
         		Log.d("BuganizerParseEdit", "onActivityResult:ACTIVITY_FRIEND_LIST_SHOW");
+        		flist = extras.getStringArrayList(BuganizerParseConstants.friendslist);  
+        		for (String f : flist)
+        		{
+        			Log.d("BuganizerParseEdit", "Adding user to ACL " + f);
+            		if (acl == null) {
+            			Log.d("BuganizerParseEdit", "Creating ACL");
+            			acl = new ParseACL();
+            		}
+        			acl.setWriteAccess(f, true);
+        			acl.setReadAccess(f, true);
+        		}
+        		if ((acl != null) && (flist.size() > 0))
+        		{
+        			Log.d("BuganizerParseEdit", "Saving object with ACL in background");
+        			pObject.setACL(acl);
+        			pObject.saveInBackground();
+        		}
                 break;
         }
     }
+
 }

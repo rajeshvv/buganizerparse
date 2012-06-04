@@ -110,7 +110,7 @@ public class BuganizerListFriendsActivity extends ListActivity {
 	    		if (v2.isChecked() == true)
 	    		{
 	    			HashMap<String, String> map = allpeople.get(j);
-	    			String username = map.get(BuganizerParseConstants.username);
+	    			String username = map.get(BuganizerParseConstants.objectid);
 		    		Log.d("BuganizerListFriendsActivity", "onclickthis: user selected is: " + username);
 		    		friendstoadd.add(username);
 	    		}
@@ -126,6 +126,8 @@ public class BuganizerListFriendsActivity extends ListActivity {
     {
     	HashMap<String, String> map = new HashMap<String, String>();
     	map.put(BuganizerParseConstants.username, username.getUsername());
+    	map.put(BuganizerParseConstants.objectid, username.getObjectId());
+
     	allpeople.add(map);
     	listAdapter.notifyDataSetChanged();
 		Log.d("BuganizerListFriendsActivity", "Showing user: " + username.getUsername());

@@ -235,6 +235,7 @@ public class BuganizerparseActivity extends ListActivity {
                 ArrayList<String> ap;
                 ap = extras.getStringArrayList(BuganizerParseConstants.comments);
 
+                
                 Log.d("BuganizerparseActivity", "object id " + _id); 
                 ParseObject pi = GetParseObjectById(_id);
                 
@@ -248,7 +249,7 @@ public class BuganizerparseActivity extends ListActivity {
 	            		Log.d("BuganizerparseActivity", "object is : " + tt.getObjectId());  
 
 	                }
-	                                
+	                
                 	Log.d("BuganizerparseActivity", "onActivityResult:ACTIVITY_BUG_EDIT saving bug "+ pi.getString(BuganizerParseConstants.title));
                 	Toast.makeText(getBaseContext(), "Saved ", Toast.LENGTH_SHORT).show();
                 }
